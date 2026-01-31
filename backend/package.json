@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "ASTRA Agent Brain - Backend server with Yellow Network integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@erc7824/nitrolite": "^0.5.3",
+    "dotenv": "^17.2.3",
+    "ethers": "^6.16.0",
+    "express": "^5.2.1"
+  }
+}
