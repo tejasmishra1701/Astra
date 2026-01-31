@@ -1,0 +1,80 @@
+# ========================
+# ASTRA Project .gitignore
+# ========================
+
+# Environment & Secrets
+.env
+.env.*
+*.env
+.secret
+*.key
+*.pem
+
+# ========================
+# Foundry / Solidity
+# ========================
+/contracts/out/
+/contracts/cache/
+/contracts/cache_forge/
+broadcast/
+*.artifacts
+
+# ========================
+# Node.js / Frontend
+# ========================
+node_modules/
+.pnpm-store/
+.next/
+.nuxt/
+dist/
+build/
+*.tsbuildinfo
+
+# ========================
+# Python / Backend
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+.eggs/
+
+# ========================
+# IDE & Editor
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ========================
+# OS Generated
+# ========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# ========================
+# Logs & Debug
+# ========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug/
+logs/
+
+# ========================
+# Test & Coverage
+# ========================
+coverage/
+.nyc_output/
+lcov.info
