@@ -15,10 +15,10 @@ const { ethers } = require('ethers');
 // CONFIGURATION
 // ============================================================
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const RPC_URL = process.env.RPC_URL || 'https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY';
 const YELLOW_SANDBOX_WS = process.env.YELLOW_WS || 'wss://sandbox.yellownetwork.io/ws';
-const ASTRA_RESOLVER_ADDRESS = process.env.ASTRA_RESOLVER_ADDRESS || '0x...'; // Deploy address
+const ASTRA_RESOLVER_ADDRESS = process.env.ASTRA_RESOLVER_ADDRESS || '0x0000000000000000000000000000000000000000'; // Deploy address
 
 // AstraResolver ABI - Auto-generated from forge build
 // Copy from: contracts/out/AstraResolver.sol/AstraResolver.json

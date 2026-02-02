@@ -78,3 +78,5 @@ logs/
 coverage/
 .nyc_output/
 lcov.info
+
+.kiro
