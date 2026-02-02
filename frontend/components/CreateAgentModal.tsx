@@ -58,12 +58,12 @@ export default function CreateAgentModal({ isOpen, onClose, onSuccess }: CreateA
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} size="md" showCloseButton={false}>
+    <Modal isOpen={isOpen} onClose={handleClose} size="md">
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20 border border-accent-primary/30 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-accent-primary/10 flex items-center justify-center">
               <Bot className="w-6 h-6 text-accent-primary" />
             </div>
             <div>
@@ -74,7 +74,7 @@ export default function CreateAgentModal({ isOpen, onClose, onSuccess }: CreateA
           <button
             onClick={handleClose}
             disabled={isCreating}
-            className="text-terminal-muted hover:text-terminal-text transition-colors disabled:opacity-50 p-2 hover:bg-terminal-bg rounded-lg"
+            className="text-terminal-muted hover:text-terminal-text transition-colors disabled:opacity-50"
           >
             <X className="w-6 h-6" />
           </button>
@@ -84,7 +84,7 @@ export default function CreateAgentModal({ isOpen, onClose, onSuccess }: CreateA
         <div className="space-y-6">
           {/* Agent Name Input */}
           <div>
-            <label className="block text-sm font-semibold text-terminal-text mb-2">
+            <label className="block text-sm font-mono text-terminal-text mb-2">
               Agent Name
             </label>
             <div className="relative">
@@ -94,7 +94,7 @@ export default function CreateAgentModal({ isOpen, onClose, onSuccess }: CreateA
                 onChange={(e) => setAgentName(e.target.value.toLowerCase())}
                 placeholder="my-agent"
                 disabled={isCreating}
-                className="pr-32 bg-terminal-bg"
+                className="pr-32"
               />
               <div className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-mono text-terminal-muted">
                 .astra.eth
@@ -108,32 +108,32 @@ export default function CreateAgentModal({ isOpen, onClose, onSuccess }: CreateA
 
           {/* Preview */}
           {agentName && (
-            <div className="p-4 bg-terminal-bg rounded-lg border border-accent-primary/30">
+            <div className="p-4 bg-terminal-panel rounded-lg border border-terminal-border">
               <div className="text-xs text-terminal-muted mb-1">Your agent will be created as:</div>
-              <div className="text-lg font-mono text-accent-primary font-bold">
+              <div className="text-lg font-mono text-accent-primary">
                 {agentName}.astra.eth
               </div>
             </div>
           )}
 
           {/* Info Box */}
-          <div className="p-4 bg-accent-primary/10 rounded-lg border border-accent-primary/30">
-            <h3 className="text-sm font-bold text-terminal-text mb-3">What happens next?</h3>
+          <div className="p-4 bg-accent-primary/5 rounded-lg border border-accent-primary/20">
+            <h3 className="text-sm font-bold text-terminal-text mb-2">What happens next?</h3>
             <ul className="space-y-2 text-sm text-terminal-muted">
               <li className="flex items-start gap-2">
-                <span className="text-accent-primary mt-0.5 font-bold">1.</span>
+                <span className="text-accent-primary mt-0.5">1.</span>
                 <span>ENS subname will be registered on-chain</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-accent-primary mt-0.5 font-bold">2.</span>
+                <span className="text-accent-primary mt-0.5">2.</span>
                 <span>You'll need to deposit fuel (USDC/ETH) for trading</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-accent-primary mt-0.5 font-bold">3.</span>
+                <span className="text-accent-primary mt-0.5">3.</span>
                 <span>Set your policy rules in the Agent Passport</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-accent-primary mt-0.5 font-bold">4.</span>
+                <span className="text-accent-primary mt-0.5">4.</span>
                 <span>Start trading with zero gas fees!</span>
               </li>
             </ul>
