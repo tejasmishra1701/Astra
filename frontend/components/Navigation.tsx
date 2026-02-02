@@ -45,7 +45,7 @@ export default function Navigation() {
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-yellow-400 to-ens-500 opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300"></div>
             </div>
             <div className="hidden sm:block">
-              <span className="text-xl font-bold bg-gradient-to-r from-yellow-400 to-ens-500 bg-clip-text text-transparent">
+              <span className="text-xl font-bold">
                 ASTRA
               </span>
               <div className="text-[10px] text-terminal-muted font-mono -mt-1">

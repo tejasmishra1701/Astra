@@ -32,11 +32,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-terminal-bg text-terminal-text min-h-screen`}
       >
+        {/* Ambient Background Effects */}
+        <div className="ambient-bg" />
+        <div className="grid-pattern" />
+        <div className="scanline" />
+
         <ConsoleFilter>
           <Providers>
             <ToastProvider>
               <Navigation />
-              <main className="pt-20 pb-12">{children}</main>
+              <main className="pt-20 pb-12 relative z-10">{children}</main>
             </ToastProvider>
           </Providers>
         </ConsoleFilter>
