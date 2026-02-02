@@ -10,7 +10,8 @@ const navItems = [
     { href: '/passport', label: 'Agent Passport', icon: '🛂' },
     { href: '/terminal', label: 'Clearing Terminal', icon: '⚡' },
     { href: '/analytics', label: 'Analytics', icon: '📊' },
-    { href: '/components-demo', label: 'Components', icon: '🎨' },
+    { href: '/leaderboard', label: 'Leaderboard', icon: '🏆' },
+    { href: '/how-it-works', label: 'How It Works', icon: '📖' },
 ];
 
 export default function Navigation() {

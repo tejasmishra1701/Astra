@@ -1,28 +1,31 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import * as React from 'react';
+import * as ProgressPrimitive from '@radix-ui/react-progress';
+import { cn } from '@/lib/utils';
 
-interface ProgressBarProps {
-  value: number;
+interface ProgressBarProps extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
+  value?: number;
   max?: number;
+  variant?: 'default' | 'success' | 'warning' | 'error' | 'gradient';
   size?: 'sm' | 'md' | 'lg';
-  variant?: 'default' | 'gradient' | 'success' | 'warning' | 'error';
   showLabel?: boolean;
   label?: string;
-  animated?: boolean;
-  className?: string;
 }
 
-const ProgressBar = ({
-  value,
+const ProgressBar = React.forwardRef<
+  React.ElementRef<typeof ProgressPrimitive.Root>,
+  ProgressBarProps
+>(({ 
+  className, 
+  value = 0, 
   max = 100,
-  size = 'md',
   variant = 'default',
+  size = 'md',
   showLabel = false,
   label,
-  animated = true,
-  className = '',
-}: ProgressBarProps) => {
+  ...props 
+}, ref) => {
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
 
   const sizeClasses = {
@@ -33,45 +36,41 @@ const ProgressBar = ({
 
   const variantClasses = {
     default: 'bg-accent-primary',
-    gradient: 'bg-gradient-to-r from-[#667eea] to-[#764ba2]',
     success: 'bg-accent-success',
     warning: 'bg-accent-warning',
     error: 'bg-accent-error',
+    gradient: 'bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-primary',
   };
 
   return (
-    <div className={`w-full ${className}`}>
+    <div className="w-full space-y-1">
       {(showLabel || label) && (
-        <div className="flex justify-between items-center mb-2">
-          {label && (
-            <span className="text-sm font-mono text-terminal-muted">{label}</span>
-          )}
-          {showLabel && (
-            <span className="text-sm font-mono text-terminal-text font-semibold">
-              {percentage.toFixed(0)}%
-            </span>
-          )}
+        <div className="flex items-center justify-between text-xs text-terminal-text-secondary">
+          <span>{label || 'Progress'}</span>
+          <span className="font-mono">{percentage.toFixed(0)}%</span>
         </div>
       )}
-      <div
-        className={`w-full bg-terminal-bg rounded-full overflow-hidden ${sizeClasses[size]}`}
-      >
-        {animated ? (
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${percentage}%` }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className={`h-full rounded-full ${variantClasses[variant]}`}
-          />
-        ) : (
-          <div
-            style={{ width: `${percentage}%` }}
-            className={`h-full rounded-full ${variantClasses[variant]} transition-all duration-300`}
-          />
+      <ProgressPrimitive.Root
+        ref={ref}
+        className={cn(
+          'relative overflow-hidden rounded-full bg-terminal-border',
+          sizeClasses[size],
+          className
         )}
-      </div>
+        {...props}
+      >
+        <ProgressPrimitive.Indicator
+          className={cn(
+            'h-full w-full flex-1 transition-all duration-500 ease-out',
+            variantClasses[variant]
+          )}
+          style={{ transform: `translateX(-${100 - percentage}%)` }}
+        />
+      </ProgressPrimitive.Root>
     </div>
   );
-};
+});
 
-export default ProgressBar;
+ProgressBar.displayName = 'ProgressBar';
+
+export { ProgressBar };

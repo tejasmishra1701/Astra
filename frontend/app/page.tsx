@@ -2,11 +2,14 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Plus } from 'lucide-react';
 import IntentStream from '@/components/IntentStream';
 import StatsRibbon from '@/components/StatsRibbon';
 import LevelCard from '@/components/LevelCard';
 import TopPerformers from '@/components/TopPerformers';
 import AgentTable from '@/components/AgentTable';
+import CreateAgentModal from '@/components/CreateAgentModal';
+import { Button } from '@/components/ui/button';
 
 // Mock balance data
 const mockBalances = [
@@ -45,6 +48,7 @@ const mockPerformers = [
 export default function CommandCenter() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState<null | { name: string; policies: Record<string, string> }>(null);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,22 +86,34 @@ export default function CommandCenter() {
             </p>
           </div>
 
-          {/* Global ENS Search */}
-          <form onSubmit={handleSearch} className="flex gap-2">
-            <input
-              type="text"
-              placeholder="Search any agent.eth..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-4 py-2 bg-terminal-panel border border-terminal-border rounded-lg font-mono text-sm w-64 focus:border-accent-primary focus:outline-none transition-colors"
-            />
-            <button
-              type="submit"
-              className="px-4 py-2 bg-accent-primary text-terminal-bg rounded-lg font-mono font-bold hover:scale-105 transition-transform"
+          <div className="flex gap-3">
+            {/* Create Agent Button */}
+            <Button
+              variant="primary"
+              onClick={() => setIsCreateModalOpen(true)}
+              className="flex items-center gap-2"
             >
-              Inspect
-            </button>
-          </form>
+              <Plus className="w-4 h-4" />
+              Create Agent
+            </Button>
+
+            {/* Global ENS Search */}
+            <form onSubmit={handleSearch} className="flex gap-2">
+              <input
+                type="text"
+                placeholder="Search any agent.eth..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="px-4 py-2 bg-terminal-panel border border-terminal-border rounded-lg font-mono text-sm w-64 focus:border-accent-primary focus:outline-none transition-colors"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 bg-accent-primary text-terminal-bg rounded-lg font-mono font-bold hover:scale-105 transition-transform"
+              >
+                Inspect
+              </button>
+            </form>
+          </div>
         </div>
 
         {/* Search Result */}
@@ -200,6 +216,16 @@ export default function CommandCenter() {
           </div>
         </div>
       </div>
+
+      {/* Create Agent Modal */}
+      <CreateAgentModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSuccess={(agentName) => {
+          console.log('Agent created:', agentName);
+          // TODO: Refresh agent list
+        }}
+      />
     </div>
   );
 }

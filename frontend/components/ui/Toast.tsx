@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 
@@ -29,6 +29,11 @@ export const useToast = () => {
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const showToast = useCallback(
     (message: string, type: ToastType = 'info', duration: number = 3000) => {
@@ -79,7 +84,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      {typeof window !== 'undefined' &&
+      {mounted &&
         createPortal(
           <div className="fixed top-20 right-4 z-[1700] flex flex-col gap-2 pointer-events-none">
             <AnimatePresence>
