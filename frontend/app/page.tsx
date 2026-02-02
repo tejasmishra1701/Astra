@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Plus, Search, LayoutDashboard, DollarSign, X } from "lucide-react";
+import {
+  Plus,
+  Search,
+  LayoutDashboard,
+  DollarSign,
+  X,
+  Zap,
+} from "lucide-react";
 import IntentStream from "@/components/IntentStream";
 import StatsRibbon from "@/components/StatsRibbon";
 import LevelCard from "@/components/LevelCard";
@@ -243,78 +250,107 @@ export default function CommandCenter() {
         <div className="grid grid-cols-12 gap-6">
           {/* Left: Unified Balance Card */}
           <div className="col-span-12 lg:col-span-3">
-            <div className="bg-terminal-panel border border-terminal-border rounded-lg p-6 shadow-terminal h-full">
-              <h2 className="text-lg font-bold text-terminal-text mb-4 flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-success to-accent-primary flex items-center justify-center">
-                  <DollarSign className="w-4 h-4 text-white" />
+            <div className="relative bg-terminal-bg/90 backdrop-blur-sm border border-yellow-400/20 rounded-xl overflow-hidden shadow-terminal shadow-yellow-400/5 h-full">
+              {/* Header */}
+              <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-terminal-panel via-terminal-panel to-yellow-400/5 border-b border-yellow-400/20">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-yellow-400 to-ens-500 shadow-lg shadow-yellow-400/20">
+                    <DollarSign className="w-4 h-4 text-terminal-bg" />
+                  </div>
+                  <span className="text-sm font-mono text-yellow-400 uppercase tracking-widest font-semibold">
+                    Unified Balance
+                  </span>
                 </div>
-                Unified Balance
-              </h2>
-
-              {/* Total */}
-              <div className="mb-6">
-                <div className="text-3xl font-bold text-accent-primary">
-                  $
-                  {totalUSD.toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                  })}
-                </div>
-                <div className="text-sm text-terminal-muted">
-                  Total across all chains
+                <div className="flex items-center gap-2">
+                  <div className="relative">
+                    <div className="w-2 h-2 rounded-full bg-accent-success animate-pulse"></div>
+                    <div className="absolute inset-0 w-2 h-2 rounded-full bg-accent-success animate-ping"></div>
+                  </div>
                 </div>
               </div>
 
-              {/* Chain Breakdown */}
-              <div className="space-y-3">
-                {mockBalances.map((b, i) => (
+              {/* Content */}
+              <div className="p-5">
+                {/* Total Balance */}
+                <div className="mb-6 text-center">
                   <motion.div
-                    key={b.chain}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center justify-between py-2 border-b border-terminal-border last:border-0"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-4xl font-bold font-mono text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-ens-400"
                   >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${b.color} flex items-center justify-center`}
-                      >
-                        <span className="text-xs font-bold text-white">
-                          {b.symbol[0]}
-                        </span>
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-terminal-text">
-                          {b.chain}
-                        </div>
-                        <div className="text-xs text-terminal-muted">
-                          {b.balance} {b.symbol}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-sm font-semibold text-accent-secondary">
-                      {b.usd}
-                    </div>
+                    $
+                    {totalUSD.toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                    })}
                   </motion.div>
-                ))}
+                  <div className="text-xs text-terminal-muted mt-1 font-mono uppercase tracking-wider">
+                    Total across all chains
+                  </div>
+                </div>
+
+                {/* Chain Breakdown */}
+                <div className="space-y-2">
+                  {mockBalances.map((b, i) => (
+                    <motion.div
+                      key={b.chain}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="group flex items-center justify-between p-3 rounded-lg bg-terminal-panel/50 border border-transparent hover:border-yellow-400/20 hover:bg-yellow-400/5 transition-all duration-200 cursor-pointer"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`w-10 h-10 rounded-xl bg-gradient-to-br ${b.color} flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform`}
+                        >
+                          <span className="text-sm font-bold text-white">
+                            {b.symbol[0]}
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold text-terminal-text group-hover:text-yellow-400 transition-colors">
+                            {b.chain}
+                          </div>
+                          <div className="text-xs text-terminal-muted font-mono">
+                            {b.balance} {b.symbol}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-sm font-bold text-ens-400 font-mono">
+                        {b.usd}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* ClearSync Deposit */}
+                <div className="mt-5 pt-4 border-t border-yellow-400/10">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-accent-success/5 border border-accent-success/20">
+                    <div>
+                      <div className="text-xs text-terminal-muted font-mono uppercase">
+                        ClearSync Deposit
+                      </div>
+                      <div className="text-lg font-bold text-accent-success">
+                        1.5 ETH
+                      </div>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-accent-success/20 flex items-center justify-center">
+                      <Zap className="w-5 h-5 text-accent-success" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between mt-3 px-1">
+                    <div className="text-xs text-terminal-muted font-mono">
+                      Session Runway
+                    </div>
+                    <div className="text-sm font-mono text-yellow-400 font-semibold">
+                      ~45,000 trades
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* ClearSync Deposit */}
-              <div className="mt-6 pt-4 border-t border-terminal-border">
-                <div className="flex items-center justify-between">
-                  <div className="text-sm text-terminal-muted">
-                    ClearSync Deposit
-                  </div>
-                  <div className="text-accent-success font-bold">1.5 ETH</div>
-                </div>
-                <div className="flex items-center justify-between mt-1">
-                  <div className="text-sm text-terminal-muted">
-                    Session Runway
-                  </div>
-                  <div className="text-accent-primary text-sm">
-                    ~45,000 trades
-                  </div>
-                </div>
-              </div>
+              {/* Corner accents */}
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-yellow-400/10 to-transparent pointer-events-none"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-ens-500/5 to-transparent pointer-events-none"></div>
             </div>
           </div>
 
