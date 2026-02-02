@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Trophy, Medal, Award, TrendingUp, Users } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
@@ -95,6 +95,13 @@ type TimePeriod = "daily" | "weekly" | "monthly" | "allTime";
 export default function LeaderboardPage() {
   const [sortBy, setSortBy] = useState<SortMetric>("volume");
   const [timePeriod, setTimePeriod] = useState<TimePeriod>("allTime");
+
+  // Sort leaderboard by selected metric
+  const sortedLeaderboard = useMemo(() => {
+    return [...mockLeaderboard]
+      .sort((a, b) => b[sortBy] - a[sortBy])
+      .map((entry, index) => ({ ...entry, rank: index + 1 }));
+  }, [sortBy]);
 
   const getRankIcon = (rank: number) => {
     if (rank === 1) return <Trophy className="w-6 h-6 text-accent-warning" />;
@@ -247,7 +254,7 @@ export default function LeaderboardPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-terminal-border">
-              {mockLeaderboard.map((entry) => (
+              {sortedLeaderboard.map((entry) => (
                 <tr
                   key={entry.rank}
                   className="hover:bg-terminal-panel transition-colors"
