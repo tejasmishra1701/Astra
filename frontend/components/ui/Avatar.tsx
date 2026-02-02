@@ -105,3 +105,4 @@ const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
 Avatar.displayName = 'Avatar';
 
 export default Avatar;
+export { Avatar };

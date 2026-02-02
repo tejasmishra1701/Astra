@@ -70,7 +70,7 @@ const Modal = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-0 bg-terminal-bg/80 backdrop-blur-md"
+            className="absolute inset-0 bg-terminal-bg/95 backdrop-blur-lg"
             onClick={handleBackdropClick}
           />
 
@@ -81,7 +81,7 @@ const Modal = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className={`relative w-full ${sizeClasses[size]} bg-terminal-elevated border border-terminal-border rounded-xl shadow-xl overflow-hidden`}
+            className={`relative w-full ${sizeClasses[size]} bg-terminal-panel border-2 border-terminal-border rounded-xl shadow-2xl overflow-hidden`}
           >
             {/* Header */}
             {(title || showCloseButton) && (

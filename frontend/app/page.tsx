@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Plus } from 'lucide-react';
+import { Plus, Search, LayoutDashboard, DollarSign, X } from 'lucide-react';
 import IntentStream from '@/components/IntentStream';
 import StatsRibbon from '@/components/StatsRibbon';
 import LevelCard from '@/components/LevelCard';
@@ -13,18 +13,18 @@ import { Button } from '@/components/ui/button';
 
 // Mock balance data
 const mockBalances = [
-  { chain: 'Ethereum', symbol: 'ETH', balance: '2.4521', usd: '$4,890.42', icon: '⟠' },
-  { chain: 'Base', symbol: 'ETH', balance: '1.2000', usd: '$2,400.00', icon: '🔵' },
-  { chain: 'Arbitrum', symbol: 'ETH', balance: '0.8500', usd: '$1,700.00', icon: '🔷' },
-  { chain: 'Polygon', symbol: 'MATIC', balance: '1,250.00', usd: '$875.00', icon: '💜' },
+  { chain: 'Ethereum', symbol: 'ETH', balance: '2.4521', usd: '$4,890.42', color: 'from-blue-500 to-purple-500' },
+  { chain: 'Base', symbol: 'ETH', balance: '1.2000', usd: '$2,400.00', color: 'from-blue-600 to-blue-400' },
+  { chain: 'Arbitrum', symbol: 'ETH', balance: '0.8500', usd: '$1,700.00', color: 'from-cyan-500 to-blue-500' },
+  { chain: 'Polygon', symbol: 'MATIC', balance: '1,250.00', usd: '$875.00', color: 'from-purple-600 to-purple-400' },
 ];
 
 // Mock stats data
 const mockStats = [
-  { label: 'Total Volume', value: '$1.2M', change: 12.5, icon: '💰' },
-  { label: 'Active Agents', value: '24', change: 8.3, icon: '🤖' },
-  { label: 'Avg Compliance', value: '98.7%', change: 2.1, icon: '✅' },
-  { label: 'Trades Today', value: '1,247', change: -3.2, icon: '⚡' },
+  { label: 'Total Volume', value: '$1.2M', change: 12.5 },
+  { label: 'Active Agents', value: '24', change: 8.3 },
+  { label: 'Avg Compliance', value: '98.7%', change: 2.1 },
+  { label: 'Trades Today', value: '1,247', change: -3.2 },
 ];
 
 // Mock agent data
@@ -73,20 +73,22 @@ export default function CommandCenter() {
       {/* Global Stats Ribbon */}
       <StatsRibbon stats={mockStats} />
 
-      <div className="max-w-7xl mx-auto px-6 py-6 space-y-6">
+      <div className="max-w-7xl mx-auto px-6 py-6 space-y-6 mt-4">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold font-mono text-accent-primary flex items-center gap-3">
-              <span className="text-4xl">🎛️</span>
-              Command Center
-            </h1>
-            <p className="text-terminal-muted font-mono mt-1">
+            <div className="flex items-center gap-3 mb-2">
+              <LayoutDashboard className="w-8 h-8 text-accent-primary" />
+              <h1 className="text-3xl font-bold text-terminal-text">
+                Command Center
+              </h1>
+            </div>
+            <p className="text-terminal-muted">
               Monitor your fleet of autonomous agents
             </p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             {/* Create Agent Button */}
             <Button
               variant="primary"
@@ -99,18 +101,21 @@ export default function CommandCenter() {
 
             {/* Global ENS Search */}
             <form onSubmit={handleSearch} className="flex gap-2">
-              <input
-                type="text"
-                placeholder="Search any agent.eth..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="px-4 py-2 bg-terminal-panel border border-terminal-border rounded-lg font-mono text-sm w-64 focus:border-accent-primary focus:outline-none transition-colors"
-              />
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-terminal-muted" />
+                <input
+                  type="text"
+                  placeholder="Search agent.eth..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-4 py-2 bg-terminal-panel border border-terminal-border rounded-lg text-sm w-64 focus:border-accent-primary focus:outline-none transition-colors"
+                />
+              </div>
               <button
                 type="submit"
-                className="px-4 py-2 bg-accent-primary text-terminal-bg rounded-lg font-mono font-bold hover:scale-105 transition-transform"
+                className="px-4 py-2 bg-accent-primary text-terminal-bg rounded-lg font-semibold hover:bg-accent-primary/90 transition-all"
               >
-                Inspect
+                Search
               </button>
             </form>
           </div>
@@ -129,7 +134,7 @@ export default function CommandCenter() {
                 onClick={() => setSearchResult(null)}
                 className="text-terminal-muted hover:text-terminal-text"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -148,16 +153,19 @@ export default function CommandCenter() {
           {/* Left: Unified Balance Card */}
           <div className="col-span-12 lg:col-span-3">
             <div className="bg-terminal-panel border border-terminal-border rounded-lg p-6 shadow-terminal h-full">
-              <h2 className="text-lg font-mono font-bold text-terminal-text mb-4 flex items-center gap-2">
-                💰 Unified Balance
+              <h2 className="text-lg font-bold text-terminal-text mb-4 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-success to-accent-primary flex items-center justify-center">
+                  <DollarSign className="w-4 h-4 text-white" />
+                </div>
+                Unified Balance
               </h2>
 
               {/* Total */}
               <div className="mb-6">
-                <div className="text-3xl font-mono font-bold text-accent-primary">
+                <div className="text-3xl font-bold text-accent-primary">
                   ${totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </div>
-                <div className="text-sm text-terminal-muted font-mono">Total across all chains</div>
+                <div className="text-sm text-terminal-muted">Total across all chains</div>
               </div>
 
               {/* Chain Breakdown */}
@@ -171,15 +179,17 @@ export default function CommandCenter() {
                     className="flex items-center justify-between py-2 border-b border-terminal-border last:border-0"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-xl">{b.icon}</span>
+                      <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${b.color} flex items-center justify-center`}>
+                        <span className="text-xs font-bold text-white">{b.symbol[0]}</span>
+                      </div>
                       <div>
-                        <div className="text-sm font-mono text-terminal-text">{b.chain}</div>
-                        <div className="text-xs text-terminal-muted font-mono">
+                        <div className="text-sm font-semibold text-terminal-text">{b.chain}</div>
+                        <div className="text-xs text-terminal-muted">
                           {b.balance} {b.symbol}
                         </div>
                       </div>
                     </div>
-                    <div className="text-sm font-mono text-accent-secondary">{b.usd}</div>
+                    <div className="text-sm font-semibold text-accent-secondary">{b.usd}</div>
                   </motion.div>
                 ))}
               </div>
@@ -187,12 +197,12 @@ export default function CommandCenter() {
               {/* ClearSync Deposit */}
               <div className="mt-6 pt-4 border-t border-terminal-border">
                 <div className="flex items-center justify-between">
-                  <div className="text-sm font-mono text-terminal-muted">ClearSync Deposit</div>
-                  <div className="text-accent-success font-mono font-bold">1.5 ETH</div>
+                  <div className="text-sm text-terminal-muted">ClearSync Deposit</div>
+                  <div className="text-accent-success font-bold">1.5 ETH</div>
                 </div>
                 <div className="flex items-center justify-between mt-1">
-                  <div className="text-sm font-mono text-terminal-muted">Session Runway</div>
-                  <div className="text-accent-primary font-mono text-sm">~45,000 trades</div>
+                  <div className="text-sm text-terminal-muted">Session Runway</div>
+                  <div className="text-accent-primary text-sm">~45,000 trades</div>
                 </div>
               </div>
             </div>

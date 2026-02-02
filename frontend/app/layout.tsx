@@ -33,7 +33,7 @@ export default function RootLayout({
         <Providers>
           <ToastProvider>
             <Navigation />
-            <main className="pt-20 md:pt-16 pb-8">
+            <main className="pt-20 pb-12">
               {children}
             </main>
           </ToastProvider>

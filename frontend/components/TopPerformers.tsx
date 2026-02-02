@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Trophy, Medal, Award } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 
 interface Performer {
@@ -19,13 +20,13 @@ export default function TopPerformers({ performers, title = 'Top Performers' }: 
   const getRankBadge = (rank: number) => {
     switch (rank) {
       case 1:
-        return '🥇';
+        return <Trophy className="w-4 h-4 text-accent-warning" />;
       case 2:
-        return '🥈';
+        return <Medal className="w-4 h-4 text-terminal-muted" />;
       case 3:
-        return '🥉';
+        return <Award className="w-4 h-4 text-orange-600" />;
       default:
-        return `#${rank}`;
+        return <span className="text-xs font-mono">#{rank}</span>;
     }
   };
 
@@ -33,7 +34,7 @@ export default function TopPerformers({ performers, title = 'Top Performers' }: 
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <span>🏆</span>
+          <Trophy className="w-5 h-5 text-accent-primary" />
           {title}
         </CardTitle>
       </CardHeader>
@@ -48,7 +49,7 @@ export default function TopPerformers({ performers, title = 'Top Performers' }: 
               className="flex items-center gap-3 p-2 rounded-lg hover:bg-terminal-bg transition-colors"
             >
               {/* Rank Badge */}
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-terminal-bg border border-terminal-border flex items-center justify-center text-sm font-mono font-bold">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-terminal-bg border border-terminal-border flex items-center justify-center font-bold">
                 {getRankBadge(performer.rank)}
               </div>
 

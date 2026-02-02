@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { BarChart3, DollarSign, Zap, CheckCircle, Download, TrendingUp } from 'lucide-react';
 
 // Mock data
 const mockAuditLogs = [
@@ -24,14 +25,14 @@ export default function AnalyticsPage() {
     }, []);
 
     return (
-        <div className="max-w-7xl mx-auto px-6 space-y-6">
+        <div className="max-w-7xl mx-auto px-6 space-y-6 mt-4">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold font-mono text-accent-primary flex items-center gap-3">
-                    <span className="text-4xl">📊</span>
+                <h1 className="text-3xl font-bold text-accent-primary flex items-center gap-3">
+                    <BarChart3 className="w-8 h-8" />
                     Analytics & Proof
                 </h1>
-                <p className="text-terminal-muted font-mono mt-1">
+                <p className="text-terminal-muted mt-1">
                     Verifiable compliance and efficiency metrics
                 </p>
             </div>
@@ -44,39 +45,48 @@ export default function AnalyticsPage() {
                     animate={{ boxShadow: ['0 0 20px rgba(16, 185, 129, 0.2)', '0 0 40px rgba(16, 185, 129, 0.3)', '0 0 20px rgba(16, 185, 129, 0.2)'] }}
                     transition={{ duration: 2, repeat: Infinity }}
                 >
-                    <div className="text-sm font-mono text-terminal-muted mb-2 uppercase tracking-wider">
-                        💰 Gas Saved (All Time)
+                    <div className="flex items-center gap-2 mb-2">
+                        <DollarSign className="w-5 h-5 text-accent-success" />
+                        <span className="text-sm text-terminal-muted uppercase tracking-wider">
+                            Gas Saved (All Time)
+                        </span>
                     </div>
                     <div className="text-4xl font-mono font-bold text-accent-success">
                         ${gasSaved.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
-                    <div className="text-xs font-mono text-terminal-muted mt-2">
+                    <div className="text-xs text-terminal-muted mt-2">
                         By staying off-chain with Yellow Network
                     </div>
                 </motion.div>
 
                 {/* Efficiency Gap */}
                 <div className="bg-terminal-panel border border-accent-primary/50 rounded-lg p-6 shadow-terminal">
-                    <div className="text-sm font-mono text-terminal-muted mb-2 uppercase tracking-wider">
-                        ⚡ Efficiency Gap
+                    <div className="flex items-center gap-2 mb-2">
+                        <Zap className="w-5 h-5 text-accent-primary" />
+                        <span className="text-sm text-terminal-muted uppercase tracking-wider">
+                            Efficiency Gap
+                        </span>
                     </div>
                     <div className="flex items-baseline gap-2">
                         <span className="text-4xl font-mono font-bold text-accent-primary">8ms</span>
-                        <span className="text-terminal-muted font-mono">vs</span>
+                        <span className="text-terminal-muted">vs</span>
                         <span className="text-2xl font-mono text-terminal-muted line-through">12s</span>
                     </div>
-                    <div className="text-xs font-mono text-terminal-muted mt-2">
+                    <div className="text-xs text-terminal-muted mt-2">
                         1,500x faster than on-chain execution
                     </div>
                 </div>
 
                 {/* Compliance Score */}
                 <div className="bg-terminal-panel border border-terminal-border rounded-lg p-6 shadow-terminal">
-                    <div className="text-sm font-mono text-terminal-muted mb-2 uppercase tracking-wider">
-                        ✅ Compliance Score
+                    <div className="flex items-center gap-2 mb-2">
+                        <CheckCircle className="w-5 h-5 text-accent-success" />
+                        <span className="text-sm text-terminal-muted uppercase tracking-wider">
+                            Compliance Score
+                        </span>
                     </div>
                     <div className="text-4xl font-mono font-bold text-accent-success">99.7%</div>
-                    <div className="text-xs font-mono text-terminal-muted mt-2">
+                    <div className="text-xs text-terminal-muted mt-2">
                         Clearnode never deviated from ENS rules
                     </div>
                 </div>
@@ -87,10 +97,12 @@ export default function AnalyticsPage() {
                 <div className="col-span-12 lg:col-span-8">
                     <div className="bg-terminal-panel border border-terminal-border rounded-lg shadow-terminal">
                         <div className="flex items-center justify-between px-6 py-4 border-b border-terminal-border">
-                            <h2 className="font-mono font-bold text-terminal-text flex items-center gap-2">
-                                📋 Compliance Audit Logs
+                            <h2 className="font-bold text-terminal-text flex items-center gap-2">
+                                <BarChart3 className="w-5 h-5 text-accent-primary" />
+                                Compliance Audit Logs
                             </h2>
-                            <button className="px-4 py-2 bg-terminal-bg border border-terminal-border rounded-lg text-sm font-mono text-terminal-muted hover:border-accent-primary transition-colors">
+                            <button className="px-4 py-2 bg-terminal-bg border border-terminal-border rounded-lg text-sm text-terminal-muted hover:border-accent-primary transition-colors flex items-center gap-2">
+                                <Download className="w-4 h-4" />
                                 Download CSV
                             </button>
                         </div>
@@ -135,12 +147,15 @@ export default function AnalyticsPage() {
                 {/* Performance Breakdown */}
                 <div className="col-span-12 lg:col-span-4 space-y-4">
                     <div className="bg-terminal-panel border border-terminal-border rounded-lg p-5">
-                        <h3 className="font-mono font-bold text-terminal-text mb-4">📈 Performance</h3>
+                        <h3 className="font-bold text-terminal-text mb-4 flex items-center gap-2">
+                            <TrendingUp className="w-5 h-5 text-accent-primary" />
+                            Performance
+                        </h3>
                         <div className="space-y-4">
                             <div>
-                                <div className="flex justify-between text-sm font-mono mb-1">
+                                <div className="flex justify-between text-sm mb-1">
                                     <span className="text-terminal-muted">Trades Executed</span>
-                                    <span className="text-terminal-text">12,459</span>
+                                    <span className="text-terminal-text font-mono">12,459</span>
                                 </div>
                                 <div className="h-2 bg-terminal-bg rounded-full overflow-hidden">
                                     <motion.div
@@ -152,9 +167,9 @@ export default function AnalyticsPage() {
                                 </div>
                             </div>
                             <div>
-                                <div className="flex justify-between text-sm font-mono mb-1">
+                                <div className="flex justify-between text-sm mb-1">
                                     <span className="text-terminal-muted">Trades Blocked</span>
-                                    <span className="text-terminal-text">38</span>
+                                    <span className="text-terminal-text font-mono">38</span>
                                 </div>
                                 <div className="h-2 bg-terminal-bg rounded-full overflow-hidden">
                                     <motion.div
@@ -166,9 +181,9 @@ export default function AnalyticsPage() {
                                 </div>
                             </div>
                             <div>
-                                <div className="flex justify-between text-sm font-mono mb-1">
+                                <div className="flex justify-between text-sm mb-1">
                                     <span className="text-terminal-muted">Avg Latency</span>
-                                    <span className="text-terminal-text">6.2ms</span>
+                                    <span className="text-terminal-text font-mono">6.2ms</span>
                                 </div>
                                 <div className="h-2 bg-terminal-bg rounded-full overflow-hidden">
                                     <motion.div
@@ -183,19 +198,22 @@ export default function AnalyticsPage() {
                     </div>
 
                     <div className="bg-terminal-panel border border-terminal-border rounded-lg p-5">
-                        <h3 className="font-mono font-bold text-terminal-text mb-4">🏆 Efficiency Proof</h3>
-                        <div className="space-y-3 text-sm font-mono">
+                        <h3 className="font-bold text-terminal-text mb-4 flex items-center gap-2">
+                            <CheckCircle className="w-5 h-5 text-accent-success" />
+                            Efficiency Proof
+                        </h3>
+                        <div className="space-y-3 text-sm">
                             <div className="flex justify-between">
                                 <span className="text-terminal-muted">On-chain cost</span>
-                                <span className="text-accent-error line-through">$15,890.50</span>
+                                <span className="text-accent-error line-through font-mono">$15,890.50</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-terminal-muted">Yellow cost</span>
-                                <span className="text-accent-success">$3,439.75</span>
+                                <span className="text-accent-success font-mono">$3,439.75</span>
                             </div>
                             <div className="flex justify-between pt-2 border-t border-terminal-border">
                                 <span className="text-terminal-text font-bold">Savings</span>
-                                <span className="text-accent-primary font-bold">78%</span>
+                                <span className="text-accent-primary font-bold font-mono">78%</span>
                             </div>
                         </div>
                     </div>

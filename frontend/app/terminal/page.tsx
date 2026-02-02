@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Zap, Play, Square, RotateCw, Building2, TrendingUp } from 'lucide-react';
 import ClearingPulse from '@/components/ClearingPulse';
 
 export default function TerminalPage() {
@@ -20,15 +21,15 @@ export default function TerminalPage() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-6 space-y-6">
+        <div className="max-w-7xl mx-auto px-6 space-y-6 mt-4">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold font-mono text-accent-primary flex items-center gap-3">
-                        <span className="text-4xl">⚡</span>
+                    <h1 className="text-3xl font-bold text-accent-primary flex items-center gap-3">
+                        <Zap className="w-8 h-8" />
                         Clearing Terminal
                     </h1>
-                    <p className="text-terminal-muted font-mono mt-1">
+                    <p className="text-terminal-muted mt-1">
                         Real-time trade execution and session management
                     </p>
                 </div>
@@ -40,9 +41,9 @@ export default function TerminalPage() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={handleStartSession}
-                            className="px-6 py-3 bg-accent-success text-terminal-bg font-mono font-bold rounded-lg shadow-lg flex items-center gap-2"
+                            className="px-6 py-3 bg-accent-success text-white font-bold rounded-lg shadow-lg flex items-center gap-2"
                         >
-                            <span className="text-xl">▶</span>
+                            <Play className="w-5 h-5" />
                             Start Trading
                         </motion.button>
                     ) : (
@@ -50,9 +51,9 @@ export default function TerminalPage() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={handleStopSession}
-                            className="px-6 py-3 bg-accent-error text-terminal-bg font-mono font-bold rounded-lg shadow-lg flex items-center gap-2"
+                            className="px-6 py-3 bg-accent-error text-white font-bold rounded-lg shadow-lg flex items-center gap-2"
                         >
-                            <span className="text-xl">⏹</span>
+                            <Square className="w-5 h-5" />
                             Emergency Settle
                         </motion.button>
                     )}
@@ -70,10 +71,10 @@ export default function TerminalPage() {
                 <div className="flex items-center gap-4">
                     <div className={`w-4 h-4 rounded-full ${sessionActive ? 'bg-accent-success animate-pulse' : 'bg-terminal-muted'}`}></div>
                     <div>
-                        <div className="font-mono font-bold text-terminal-text">
+                        <div className="font-bold text-terminal-text">
                             {sessionActive ? 'SESSION ACTIVE' : 'SESSION INACTIVE'}
                         </div>
-                        <div className="text-sm font-mono text-terminal-muted">
+                        <div className="text-sm text-terminal-muted">
                             {sessionActive ? 'Yellow Nitrolite channel open • Agent: alpha.astra.eth' : 'Start trading to open a session'}
                         </div>
                     </div>
@@ -81,7 +82,7 @@ export default function TerminalPage() {
                 {sessionActive && (
                     <div className="text-right">
                         <div className="text-2xl font-mono font-bold text-accent-primary">847</div>
-                        <div className="text-xs text-terminal-muted font-mono">trades this session</div>
+                        <div className="text-xs text-terminal-muted">trades this session</div>
                     </div>
                 )}
             </motion.div>
@@ -97,8 +98,9 @@ export default function TerminalPage() {
                     {/* Auto-Compounding */}
                     <div className="bg-terminal-panel border border-terminal-border rounded-lg p-5">
                         <div className="flex items-center justify-between mb-3">
-                            <h3 className="font-mono font-bold text-terminal-text flex items-center gap-2">
-                                🔄 Auto-Compound
+                            <h3 className="font-bold text-terminal-text flex items-center gap-2">
+                                <RotateCw className="w-5 h-5 text-accent-primary" />
+                                Auto-Compound
                             </h3>
                             <button
                                 onClick={() => setAutoCompound(!autoCompound)}
@@ -111,14 +113,14 @@ export default function TerminalPage() {
                                 />
                             </button>
                         </div>
-                        <p className="text-sm text-terminal-muted font-mono">
+                        <p className="text-sm text-terminal-muted">
                             Automatically reinvest 25% of profits into ClearSync deposit
                         </p>
                         {autoCompound && (
                             <div className="mt-3 pt-3 border-t border-terminal-border">
-                                <div className="flex justify-between text-sm font-mono">
+                                <div className="flex justify-between text-sm">
                                     <span className="text-terminal-muted">Compounded today</span>
-                                    <span className="text-accent-success">+0.02 ETH</span>
+                                    <span className="text-accent-success font-mono">+0.02 ETH</span>
                                 </div>
                             </div>
                         )}
@@ -127,8 +129,9 @@ export default function TerminalPage() {
                     {/* vIBAN Settlement */}
                     <div className="bg-terminal-panel border border-terminal-border rounded-lg p-5">
                         <div className="flex items-center justify-between mb-3">
-                            <h3 className="font-mono font-bold text-terminal-text flex items-center gap-2">
-                                🏦 vIBAN Settlement
+                            <h3 className="font-bold text-terminal-text flex items-center gap-2">
+                                <Building2 className="w-5 h-5 text-accent-secondary" />
+                                vIBAN Settlement
                             </h3>
                             <button
                                 onClick={() => setVibanEnabled(!vibanEnabled)}
@@ -141,12 +144,12 @@ export default function TerminalPage() {
                                 />
                             </button>
                         </div>
-                        <p className="text-sm text-terminal-muted font-mono">
+                        <p className="text-sm text-terminal-muted">
                             Auto off-ramp to TradFi when profit threshold is hit
                         </p>
                         {vibanEnabled && (
                             <div className="mt-3 pt-3 border-t border-terminal-border space-y-2">
-                                <div className="text-xs font-mono text-terminal-muted">VIBAN</div>
+                                <div className="text-xs text-terminal-muted">VIBAN</div>
                                 <div className="font-mono text-accent-secondary text-sm">
                                     DE89 3704 0044 0532 0130 00
                                 </div>
@@ -156,25 +159,26 @@ export default function TerminalPage() {
 
                     {/* Session Stats */}
                     <div className="bg-terminal-panel border border-terminal-border rounded-lg p-5">
-                        <h3 className="font-mono font-bold text-terminal-text mb-4 flex items-center gap-2">
-                            📈 Session Stats
+                        <h3 className="font-bold text-terminal-text mb-4 flex items-center gap-2">
+                            <TrendingUp className="w-5 h-5 text-accent-primary" />
+                            Session Stats
                         </h3>
                         <div className="space-y-3">
-                            <div className="flex justify-between font-mono text-sm">
+                            <div className="flex justify-between text-sm">
                                 <span className="text-terminal-muted">Avg Latency</span>
-                                <span className="text-accent-primary">6.2ms</span>
+                                <span className="text-accent-primary font-mono">6.2ms</span>
                             </div>
-                            <div className="flex justify-between font-mono text-sm">
+                            <div className="flex justify-between text-sm">
                                 <span className="text-terminal-muted">Compliance Rate</span>
-                                <span className="text-accent-success">99.8%</span>
+                                <span className="text-accent-success font-mono">99.8%</span>
                             </div>
-                            <div className="flex justify-between font-mono text-sm">
+                            <div className="flex justify-between text-sm">
                                 <span className="text-terminal-muted">Blocked Trades</span>
-                                <span className="text-accent-error">3</span>
+                                <span className="text-accent-error font-mono">3</span>
                             </div>
-                            <div className="flex justify-between font-mono text-sm">
+                            <div className="flex justify-between text-sm">
                                 <span className="text-terminal-muted">Session P&L</span>
-                                <span className="text-accent-success">+$127.45</span>
+                                <span className="text-accent-success font-mono">+$127.45</span>
                             </div>
                         </div>
                     </div>
