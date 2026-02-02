@@ -35,12 +35,12 @@ export default function Navigation() {
                 <div className="flex items-center justify-between h-16 gap-4">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-                        <div className="relative">
+                        {/* <div className="relative">
                             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-primary via-accent-secondary to-accent-primary flex items-center justify-center shadow-neon-cyan group-hover:shadow-neon-orange transition-all duration-300">
                                 <span className="text-xl font-bold text-terminal-bg">A</span>
                             </div>
                             <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent-primary to-accent-secondary opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"></div>
-                        </div>
+                        </div> */}
                         <div className="hidden sm:block">
                             <span className="text-xl font-bold bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text">
                                 ASTRA

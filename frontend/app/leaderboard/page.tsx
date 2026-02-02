@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Trophy, Medal, Award, TrendingUp, Users } from 'lucide-react';
-import { Avatar } from '@/components/ui/Avatar';
-import { Badge } from '@/components/ui/Badge';
-import { Card } from '@/components/ui/card';
+import { useState } from "react";
+import { Trophy, Medal, Award, TrendingUp, Users } from "lucide-react";
+import { Avatar } from "@/components/ui/Avatar";
+import { Badge } from "@/components/ui/Badge";
+import { Card } from "@/components/ui/card";
 
 interface LeaderboardEntry {
   rank: number;
@@ -22,9 +22,9 @@ interface LeaderboardEntry {
 const mockLeaderboard: LeaderboardEntry[] = [
   {
     rank: 1,
-    address: '0x1234...5678',
-    ensName: 'alpha.astra.eth',
-    avatar: '/avatars/1.png',
+    address: "0x1234...5678",
+    ensName: "alpha.astra.eth",
+    avatar: undefined,
     volume: 1250000,
     compliance: 99.8,
     trades: 1543,
@@ -33,9 +33,9 @@ const mockLeaderboard: LeaderboardEntry[] = [
   },
   {
     rank: 2,
-    address: '0x2345...6789',
-    ensName: 'beta.astra.eth',
-    avatar: '/avatars/2.png',
+    address: "0x2345...6789",
+    ensName: "beta.astra.eth",
+    avatar: undefined,
     volume: 980000,
     compliance: 98.5,
     trades: 1234,
@@ -44,9 +44,9 @@ const mockLeaderboard: LeaderboardEntry[] = [
   },
   {
     rank: 3,
-    address: '0x3456...7890',
-    ensName: 'gamma.astra.eth',
-    avatar: '/avatars/3.png',
+    address: "0x3456...7890",
+    ensName: "gamma.astra.eth",
+    avatar: undefined,
     volume: 750000,
     compliance: 99.2,
     trades: 987,
@@ -55,8 +55,8 @@ const mockLeaderboard: LeaderboardEntry[] = [
   },
   {
     rank: 4,
-    address: '0x4567...8901',
-    ensName: 'delta.astra.eth',
+    address: "0x4567...8901",
+    ensName: "delta.astra.eth",
     volume: 620000,
     compliance: 97.8,
     trades: 856,
@@ -65,8 +65,8 @@ const mockLeaderboard: LeaderboardEntry[] = [
   },
   {
     rank: 5,
-    address: '0x5678...9012',
-    ensName: 'epsilon.astra.eth',
+    address: "0x5678...9012",
+    ensName: "epsilon.astra.eth",
     volume: 580000,
     compliance: 98.9,
     trades: 745,
@@ -89,24 +89,26 @@ for (let i = 6; i <= 50; i++) {
   });
 }
 
-type SortMetric = 'volume' | 'compliance' | 'trades' | 'profitLoss';
-type TimePeriod = 'daily' | 'weekly' | 'monthly' | 'allTime';
+type SortMetric = "volume" | "compliance" | "trades" | "profitLoss";
+type TimePeriod = "daily" | "weekly" | "monthly" | "allTime";
 
 export default function LeaderboardPage() {
-  const [sortBy, setSortBy] = useState<SortMetric>('volume');
-  const [timePeriod, setTimePeriod] = useState<TimePeriod>('allTime');
+  const [sortBy, setSortBy] = useState<SortMetric>("volume");
+  const [timePeriod, setTimePeriod] = useState<TimePeriod>("allTime");
 
   const getRankIcon = (rank: number) => {
     if (rank === 1) return <Trophy className="w-6 h-6 text-accent-warning" />;
     if (rank === 2) return <Medal className="w-6 h-6 text-terminal-muted" />;
     if (rank === 3) return <Award className="w-6 h-6 text-orange-600" />;
-    return <span className="text-terminal-muted font-mono text-sm">#{rank}</span>;
+    return (
+      <span className="text-terminal-muted font-mono text-sm">#{rank}</span>
+    );
   };
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(value);
@@ -143,7 +145,9 @@ export default function LeaderboardPage() {
             <span className="text-sm text-terminal-muted">Total Volume</span>
           </div>
           <p className="text-3xl font-mono font-bold text-terminal-text">
-            {formatCurrency(mockLeaderboard.reduce((sum, entry) => sum + entry.volume, 0))}
+            {formatCurrency(
+              mockLeaderboard.reduce((sum, entry) => sum + entry.volume, 0),
+            )}
           </p>
         </Card>
 
@@ -153,7 +157,13 @@ export default function LeaderboardPage() {
             <span className="text-sm text-terminal-muted">Avg Compliance</span>
           </div>
           <p className="text-3xl font-mono font-bold text-terminal-text">
-            {(mockLeaderboard.reduce((sum, entry) => sum + entry.compliance, 0) / mockLeaderboard.length).toFixed(1)}%
+            {(
+              mockLeaderboard.reduce(
+                (sum, entry) => sum + entry.compliance,
+                0,
+              ) / mockLeaderboard.length
+            ).toFixed(1)}
+            %
           </p>
         </Card>
       </div>
@@ -161,37 +171,49 @@ export default function LeaderboardPage() {
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <div className="flex gap-2">
-          <span className="text-sm text-terminal-muted self-center">Sort by:</span>
-          {(['volume', 'compliance', 'trades', 'profitLoss'] as SortMetric[]).map((metric) => (
+          <span className="text-sm text-terminal-muted self-center">
+            Sort by:
+          </span>
+          {(
+            ["volume", "compliance", "trades", "profitLoss"] as SortMetric[]
+          ).map((metric) => (
             <button
               key={metric}
               onClick={() => setSortBy(metric)}
               className={`px-4 py-2 rounded-lg text-sm font-mono transition-all ${
                 sortBy === metric
-                  ? 'bg-accent-primary text-terminal-bg'
-                  : 'bg-terminal-panel text-terminal-muted hover:bg-terminal-border'
+                  ? "bg-accent-primary text-terminal-bg"
+                  : "bg-terminal-panel text-terminal-muted hover:bg-terminal-border"
               }`}
             >
-              {metric === 'profitLoss' ? 'P&L' : metric.charAt(0).toUpperCase() + metric.slice(1)}
+              {metric === "profitLoss"
+                ? "P&L"
+                : metric.charAt(0).toUpperCase() + metric.slice(1)}
             </button>
           ))}
         </div>
 
         <div className="flex gap-2">
-          <span className="text-sm text-terminal-muted self-center">Period:</span>
-          {(['daily', 'weekly', 'monthly', 'allTime'] as TimePeriod[]).map((period) => (
-            <button
-              key={period}
-              onClick={() => setTimePeriod(period)}
-              className={`px-4 py-2 rounded-lg text-sm font-mono transition-all ${
-                timePeriod === period
-                  ? 'bg-accent-secondary text-white'
-                  : 'bg-terminal-panel text-terminal-muted hover:bg-terminal-border'
-              }`}
-            >
-              {period === 'allTime' ? 'All Time' : period.charAt(0).toUpperCase() + period.slice(1)}
-            </button>
-          ))}
+          <span className="text-sm text-terminal-muted self-center">
+            Period:
+          </span>
+          {(["daily", "weekly", "monthly", "allTime"] as TimePeriod[]).map(
+            (period) => (
+              <button
+                key={period}
+                onClick={() => setTimePeriod(period)}
+                className={`px-4 py-2 rounded-lg text-sm font-mono transition-all ${
+                  timePeriod === period
+                    ? "bg-accent-secondary text-white"
+                    : "bg-terminal-panel text-terminal-muted hover:bg-terminal-border"
+                }`}
+              >
+                {period === "allTime"
+                  ? "All Time"
+                  : period.charAt(0).toUpperCase() + period.slice(1)}
+              </button>
+            ),
+          )}
         </div>
       </div>
 
@@ -258,7 +280,15 @@ export default function LeaderboardPage() {
                     {formatCurrency(entry.volume)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right">
-                    <Badge variant={entry.compliance >= 98 ? 'success' : entry.compliance >= 95 ? 'warning' : 'error'}>
+                    <Badge
+                      variant={
+                        entry.compliance >= 98
+                          ? "success"
+                          : entry.compliance >= 95
+                            ? "warning"
+                            : "error"
+                      }
+                    >
                       {entry.compliance.toFixed(1)}%
                     </Badge>
                   </td>
@@ -268,10 +298,12 @@ export default function LeaderboardPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-right">
                     <span
                       className={`font-mono text-sm ${
-                        entry.profitLoss >= 0 ? 'text-accent-success' : 'text-accent-error'
+                        entry.profitLoss >= 0
+                          ? "text-accent-success"
+                          : "text-accent-error"
                       }`}
                     >
-                      {entry.profitLoss >= 0 ? '+' : ''}
+                      {entry.profitLoss >= 0 ? "+" : ""}
                       {formatCurrency(entry.profitLoss)}
                     </span>
                   </td>
